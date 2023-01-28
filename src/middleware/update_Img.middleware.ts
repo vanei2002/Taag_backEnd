@@ -3,9 +3,5 @@ import { Request, Response , NextFunction} from "express";
 
 
 @Injectable()
-export class UpdateImgMiddleware{ 
-
-   
-
-}
+export class UpdateImgMiddleware{}
 

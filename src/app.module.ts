@@ -1,24 +1,20 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { NestModule } from '@nestjs/common/interfaces/modules';
-import { MiddlewareConsumer } from '@nestjs/common/interfaces/middleware';
-import { UpdateImgMiddleware } from './middleware/update_Img.middleware';
-import { RequestMethod } from '@nestjs/common/enums';
 import { ClientsModule } from './clients/clients.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(`mongodb+srv://${process.env.MONGO_DB}`),
+    MongooseModule.forRoot(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PW}@${process.env.MONGO_DB_LINK}`),
     UsersModule,
-    ClientsModule
+    ClientsModule,
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],  
+      isGlobal: true,
+      ignoreEnvFile: true
+    })
   ],
 
 })
-export class AppModule implements NestModule { 
-  configure(consumer: MiddlewareConsumer){
-    consumer
-      .apply(UpdateImgMiddleware)
-      .forRoutes({path: 'users', method: RequestMethod.POST});
-  }
-}
+export class AppModule {}
