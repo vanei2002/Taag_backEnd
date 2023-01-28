@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PW}@${process.env.MONGO_DB_LINK}`),
+    MongooseModule.forRoot(`mongodb+srv://vaneimendes:94869709@cluster0.u27glfn.mongodb.net/Taag-Expereince`),
     UsersModule,
     ClientsModule,
     ConfigModule.forRoot({
