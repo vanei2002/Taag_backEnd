@@ -1,7 +1,13 @@
-import { Injectable, NestMiddleware } from "@nestjs/common";
-import { Request, Response , NextFunction} from "express";
+import fs from 'fs';
 
+export const updateImg = () => {
 
-@Injectable()
-export class UpdateImgMiddleware{}
+   try{
+    const encoding = 'utf-8';
+    const img = fs.readFileSync('../img/jardim.jpg', encoding);
+    console.log(img);
+   }catch(err){
+       console.log(err);
+   }
 
+}

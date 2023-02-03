@@ -4,8 +4,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schema/user.entity';
 import { Model } from 'mongoose';
+import { updateImg } from 'src/middleware/update_Img.middleware';
 
 
+updateImg();
 @Injectable()
 export class UsersService {
 
