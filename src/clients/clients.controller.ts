@@ -7,10 +7,16 @@ import { UpdateClientDto } from './dto/update-client.dto';
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
-  @Post()
+  @Post('/clients/newclient')
   create(@Body() createClientDto: CreateClientDto) {
     return this.clientsService.create(createClientDto);
   }
+
+  @Post('/clientsexcel')
+  createExcel(@Body() createClientDto: CreateClientDto) {
+    return this.clientsService.createExcel(createClientDto);
+  }
+    
 
   @Get()
   findAll() {
