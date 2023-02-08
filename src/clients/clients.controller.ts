@@ -3,18 +3,18 @@ import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 
-@Controller('clients')
+@Controller('/clients')
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
-  @Post('/clients/newclient')
+  @Post('/newclient')
   create(@Body() createClientDto: CreateClientDto) {
     return this.clientsService.create(createClientDto);
   }
 
-  @Post('/clientsexcel')
-  createExcel(@Body() createClientDto: CreateClientDto) {
-    return this.clientsService.createExcel(createClientDto);
+  @Post('/excel')
+    async createExcel(@Body() createClienExceltDto: any) {
+      return await this.clientsService.createExcel(createClienExceltDto);
   }
     
 
