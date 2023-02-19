@@ -9,6 +9,7 @@ export class ClientsController {
 
   @Post('/newclient')
   create(@Body() createClientDto: CreateClientDto) {
+    console.log(createClientDto);
     return this.clientsService.create(createClientDto);
   }
 
@@ -16,7 +17,11 @@ export class ClientsController {
     async createExcel(@Body() createClienExceltDto: any) {
       return await this.clientsService.createExcel(createClienExceltDto);
   }
-    
+  
+  @Get('/clients')
+  async findClients() {
+    return  await this.clientsService.findClients();
+  }
 
   @Get()
   findAll() {

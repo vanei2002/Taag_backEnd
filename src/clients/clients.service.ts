@@ -2,19 +2,36 @@ import { Injectable } from '@nestjs/common';
 import { CreateClientDto} from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import readXlsxFile from 'read-excel-file/node';
+import { Client, ClientDocument } from './schema/client.entity';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class ClientsService {
 
-  create(createClientDto: CreateClientDto) {
-    return 'This action adds a new client' + createClientDto;
+  constructor(@InjectModel(Client.name)private clientsModel: Model<ClientDocument>){}
+
+  async create(createClientDto: CreateClientDto) {
+    
+    const data = await this.clientsModel.findOne({cep: createClientDto.cep})
+
+    if(data){
+      return 'Client already exists';
+    }else{
+      const client = new this.clientsModel(createClientDto);
+      client.save();
+      return 'Client created with success';
+    };
   }
 
   createExcel(createClientDto: any) {
-
     readXlsxFile(createClientDto).then((rows) => console.log(rows));
-
     return `  This action adds a new client from excel file ${createClientDto}  `;
+  }
+
+  findClients() {
+    const client = this.clientsModel.find();
+    return client;
   }
 
   findAll() {
