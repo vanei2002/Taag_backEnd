@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateClientDto} from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import readXlsxFile from 'read-excel-file/node';
 import { Client, ClientDocument } from './schema/client.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -24,9 +23,8 @@ export class ClientsService {
     };
   }
 
-  createExcel(createClientDto: any) {
-    readXlsxFile(createClientDto).then((rows) => console.log(rows));
-    return `  This action adds a new client from excel file ${createClientDto}  `;
+  createExcel(createClientDto: CreateClientDto) {
+    console.log(createClientDto);
   }
 
   findClients() {

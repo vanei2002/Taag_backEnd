@@ -14,7 +14,7 @@ export class ClientsController {
   }
 
   @Post('/excel')
-    async createExcel(@Body() createClienExceltDto: any) {
+    async createExcel(@Body() createClienExceltDto: CreateClientDto) {
       return await this.clientsService.createExcel(createClienExceltDto);
   }
   
