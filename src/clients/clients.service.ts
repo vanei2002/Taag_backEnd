@@ -12,7 +12,7 @@ export class ClientsService {
 
   async create(createClientDto: CreateClientDto) {
     
-    const data = await this.clientsModel.findOne({cep: createClientDto.cep})
+    const data = await this.clientsModel.findOne({cep: createClientDto.cep , name: createClientDto.name})
 
     if(data){
       return 'Client already exists';
@@ -24,7 +24,17 @@ export class ClientsService {
   }
 
   createExcel(createClientDto: CreateClientDto) {
-    console.log(createClientDto);
+
+    const data = this.clientsModel.findOne({cep: createClientDto.cep})
+
+    if(data){
+      return 'Client already exists';
+    }else{
+      const client = new this.clientsModel(createClientDto);
+      client.save();
+      return 'Client created with success';
+    };
+    
   }
 
   findClients() {
