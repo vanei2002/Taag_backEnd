@@ -7,6 +7,16 @@ import { UpdateClientDto } from './dto/update-client.dto';
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
+  @Get('/clients')
+  async findClients() {
+    return  await this.clientsService.findClients();
+  }
+
+  @Get('/export')
+  async exportExcel() {
+    return  await this.clientsService.exportExcel();
+  }
+
   @Post('/newclient')
   create(@Body() createClientDto: CreateClientDto) {
     console.log(createClientDto);
@@ -14,14 +24,11 @@ export class ClientsController {
   }
 
   @Post('/excel')
-    async createExcel(@Body() createClienExceltDto: CreateClientDto) {
-      return await this.clientsService.createExcel(createClienExceltDto);
+    async importExcel(@Body() createClienExceltDto: CreateClientDto) {
+      return await this.clientsService.importExcel(createClienExceltDto);
   }
   
-  @Get('/clients')
-  async findClients() {
-    return  await this.clientsService.findClients();
-  }
+
 
   @Get()
   findAll() {

@@ -4,6 +4,7 @@ import { UpdateClientDto } from './dto/update-client.dto';
 import { Client, ClientDocument } from './schema/client.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { Console } from 'console';
 
 @Injectable()
 export class ClientsService {
@@ -23,22 +24,10 @@ export class ClientsService {
     };
   }
 
-  createExcel(createClientDto: CreateClientDto) {
-
-    const data = this.clientsModel.findOne({cep: createClientDto.cep})
-
-    if(data){
-      return 'Client already exists';
-    }else{
-      const client = new this.clientsModel(createClientDto);
-      client.save();
-      return 'Client created with success';
-    };
-    
-  }
-
-  findClients() {
-    const client = this.clientsModel.find();
+  
+  async findClients() {
+    const client = await this.clientsModel.find();
+    console.log(client);
     return client;
   }
 
@@ -57,4 +46,28 @@ export class ClientsService {
   remove(id: number) {
     return `This action removes a #${id} client`;
   }
+
+  async exportExcel() {
+    const client = await this.clientsModel.find();
+    return client;
+  }
+  
+
+  async importExcel(createClientDto: CreateClientDto) {
+
+    if(createClientDto.name == '') return 
+
+    const data = await this.clientsModel.findOne({cep: createClientDto.cep  , name: createClientDto.name})
+
+    if(!data){
+      const client = new this.clientsModel(createClientDto);
+      client.save();
+      return 'Client created with success';
+
+    }
+
+    console.log('Client already exists');
+    return 'Client already exists';
+  }
+
 }
