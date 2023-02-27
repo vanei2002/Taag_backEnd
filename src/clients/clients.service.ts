@@ -24,12 +24,15 @@ export class ClientsService {
     };
   }
 
-  
   async findClients() {
     const client = await this.clientsModel.find();
-    console.log(client);
     return client;
   }
+
+  async remove(id: string) {
+     const data = await this.clientsModel.findByIdAndDelete(id);
+     return data;
+  } 
 
   findAll() {
     return `This action returns all clients`;
@@ -43,9 +46,7 @@ export class ClientsService {
     return `This action updates a #${id} client`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
-  }
+
 
   async exportExcel() {
     const client = await this.clientsModel.find();
@@ -65,7 +66,6 @@ export class ClientsService {
       return 'Client created with success';
 
     }
-
     console.log('Client already exists');
     return 'Client already exists';
   }
