@@ -2,13 +2,13 @@ import { Controller , Post, Body } from "@nestjs/common/decorators";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { ProductService } from "./product.service";
 
-@Controller('product')
+@Controller('/products')
 export class ProductController {
     constructor(private readonly productService: ProductService) {}
 
-    @Post('/newproduct')
-    create(@Body() createProductDto: CreateProductDto) {
+    @Post('/excel')
+    async create(@Body() createProductDto: CreateProductDto) {
         console.log(createProductDto);
-        return this.productService.createProduct(createProductDto);
+        return await this.productService.createProductExcel(createProductDto);
     }
 }
